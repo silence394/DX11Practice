@@ -1,0 +1,24 @@
+cbuffer VSConst : register(b0)
+{
+	matrix wvp;
+}
+
+struct VertexOut
+{
+	float4 position : SV_POSITION;
+    float4 color : COLOR;
+};
+
+VertexOut VS(float4 position : POSITION, float4 color : COLOR)
+{
+	VertexOut Out;
+	Out.position = mul(wvp, position);
+	Out.color = color;
+	
+	return Out;
+}
+
+float4 PS(VertexOut Input) : SV_TARGET
+{
+	return Input.color;
+}
